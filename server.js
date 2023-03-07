@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
+const cors = require("cors");
 const path = require("path");
 dotenv.config();
 connectDB();
@@ -13,11 +14,12 @@ app.use(express.json());
 const PORT= process.env.PORT || 5000;
 
 
-
+app.use(cors());
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 app.get("/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
   res.send("API is running..");
 });
 // DEPLOYMENT
